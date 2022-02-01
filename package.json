@@ -13,10 +13,10 @@
     "passport-local": "^1.0.0"
   },
   "scripts": {
-    "start": "node ./bin/www",
-    "devstart": "nodemon ./bin/www",
+    "start": "node app",
+    "devstart": "nodemon app",
     "serverstart": "DEBUG=members-clubhouse:* npm run devstart",
-    "build-css": "npx tailwindcss -i src/styles.css -o public/styles.css"
+    "build-css": "npx tailwindcss -i src/input.css -o public/output.css"
   },
   "devDependencies": {
     "nodemon": "^2.0.15",
