@@ -38,6 +38,7 @@ exports.user_create_post = [
       firstname: req.body.firstname,
       lastname: req.body.lastname,
       email: req.body.email,
+      // because passport.authenticate requires "username" field
       username: req.body.email,
       password: req.body.password,
       isMember: false,

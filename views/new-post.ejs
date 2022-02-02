@@ -1,0 +1,23 @@
+<%- include ("/partials/header") %>
+
+<body>
+    <h1 class="text-3xl font-bold underline"><%= title %></h1>
+    <form action="" method="POST">
+        <label for="title">Title</label>
+        <% let post_title = (typeof message == "undefined" ? "" : message.title) %>
+        <input type="text" class="form-control block px-3 py-1.5 text-base font-normal text-grey-700 border border-solid border-grey-300" name="title" value="<%= post_title %>" /><br>
+        <label for="content">Message</label>
+        <% let post_content = (typeof message == "undefined" ? "" : message.content) %>
+        <input type="text" class="form-control block px-3 py-1.5 text-base font-normal text-grey-700 border border-solid border-grey-300" name="content" value="<%= post_content %>" /><br>
+        <button type="submit">Post</button>
+    </form>
+    <% if (typeof errors != "undefined") { %>
+        <ul>
+            <% errors.forEach((error) => { %>
+                <li><%= error.msg %></li>
+            <% }) %>
+        </ul>
+    <% } %>
+</body>
+
+<%- include ("/partials/footer") %>

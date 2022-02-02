@@ -13,10 +13,8 @@
         <li><a href="/sign-up">Sign up</a></li>
         <li><a href="/log-in">Log In</a></li>
         <li><a href="/log-out">Log Out</a></li>
-        <% if (typeof user != "undefined") { %>
-        <% if (user) { %>
-        <li>Welcome <%= user.firstname %></li>
-        <% } %>
+        <% if (locals.currentUser) { %>
+        <li><%= locals.currentUser.firstname %></li>
         <% } %>
     </ul>
 </nav>

@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require("path");
+const createError = require("http-errors");
 const session = require("express-session");
 const passport = require("passport");
 const localStrategy = require("passport-local").Strategy;
@@ -96,6 +97,13 @@ app.post(
     failureRedirect: "/log-in",
   })
 );
+app.get("/new-post", function (req, res) {
+  console.log("RESLOCALS", res.locals.currentUser);
+  if (res.locals.currentUser) {
+    //! causing a problem
+    indexController.new_post_get;
+  }
+});
 
 app.get("/log-out", (req, res) => {
   req.logout();
