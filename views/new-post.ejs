@@ -1,13 +1,13 @@
-<%- include ("/partials/header") %>
+<%- include ("./partials/header") %>
 
 <body>
     <h1 class="text-3xl font-bold underline"><%= title %></h1>
     <form action="" method="POST">
         <label for="title">Title</label>
-        <% let post_title = (typeof message == "undefined" ? "" : message.title) %>
+        <% let post_title = (typeof post == "undefined" ? "" : post.title) %>
         <input type="text" class="form-control block px-3 py-1.5 text-base font-normal text-grey-700 border border-solid border-grey-300" name="title" value="<%= post_title %>" /><br>
         <label for="content">Message</label>
-        <% let post_content = (typeof message == "undefined" ? "" : message.content) %>
+        <% let post_content = (typeof post == "undefined" ? "" : post.content) %>
         <input type="text" class="form-control block px-3 py-1.5 text-base font-normal text-grey-700 border border-solid border-grey-300" name="content" value="<%= post_content %>" /><br>
         <button type="submit">Post</button>
     </form>
@@ -20,4 +20,4 @@
     <% } %>
 </body>
 
-<%- include ("/partials/footer") %>
+<%- include ("./partials/footer") %>

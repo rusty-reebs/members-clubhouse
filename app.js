@@ -1,6 +1,7 @@
 const express = require("express");
 const path = require("path");
 const createError = require("http-errors");
+const logger = require("morgan");
 const session = require("express-session");
 const passport = require("passport");
 const localStrategy = require("passport-local").Strategy;
@@ -28,6 +29,7 @@ const app = express();
 app.set("views", __dirname + "/views");
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
+app.use(logger("dev"));
 // app.use(express.json());
 // app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
 app.use(
@@ -86,6 +88,11 @@ app.use(function (req, res, next) {
   next();
 });
 
+const authenticated = (req, res, next) => {
+  console.log(req.isAuthenticated);
+  req.isAuthenticated() ? next() : res.redirect("/");
+};
+
 app.get("/", indexController.index);
 app.get("/sign-up", userController.user_create_get);
 app.post("/sign-up", userController.user_create_post);
@@ -94,16 +101,14 @@ app.post(
   "/log-in",
   passport.authenticate("local", {
     successRedirect: "/",
-    failureRedirect: "/log-in",
+    failureRedirect: "/",
   })
 );
-app.get("/new-post", function (req, res) {
-  console.log("RESLOCALS", res.locals.currentUser);
-  if (res.locals.currentUser) {
-    //! causing a problem
-    indexController.new_post_get;
-  }
-});
+app.get("/new-post", authenticated, indexController.new_post_get);
+app.post("/new-post", authenticated, indexController.new_post_post);
+
+app.get("/join", authenticated, indexController.join_get);
+app.post("/join", authenticated, indexController.join_post);
 
 app.get("/log-out", (req, res) => {
   req.logout();

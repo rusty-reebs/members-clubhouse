@@ -1,13 +1,22 @@
 <%- include ("./partials/header") %>
 <body>
 
-
-<h1 class="text-3xl font-bold underline"><%= title %></h1>
-<% if (currentUser) { %>
-    <a href="/new-post">Post new message</a>
-<% } %>
-
-
+    <h1 class="text-3xl font-bold underline"><%= title %></h1>
+    <% if (currentUser) { %>
+        <a href="/new-post">Post new message</a>
+    <% } %>
+    <% posts.forEach((post) => { %>
+        <div class="m-10 border border-solid border-gray-900">
+            <% if (currentUser) { %>
+            <h4><%- post.title %></h4>
+            <p><%- post.content %></p>
+            <p><%- post.author.firstname + " " + post.author.lastname %></p>
+            <p><%- post.timestring %></p>
+            <% } else { %>
+            <p>Please sign up or log in to read the posts!</p>
+            <% } %>
+        </div>
+    <% }) %>
 </body>
 
 

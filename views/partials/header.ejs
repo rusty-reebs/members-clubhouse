@@ -10,11 +10,16 @@
 <nav>
     <ul>
         <li><a href="/">Home</a></li>
+        <% if (typeof locals.currentUser == "undefined") { %>
         <li><a href="/sign-up">Sign up</a></li>
         <li><a href="/log-in">Log In</a></li>
-        <li><a href="/log-out">Log Out</a></li>
+        <% } %>
         <% if (locals.currentUser) { %>
+        <li><a href="/log-out">Log Out</a></li>
         <li><%= locals.currentUser.firstname %></li>
+        <% } %>
+        <% if (typeof locals.currentUser != "undefined" && !locals.currentUser.isMember) { %>
+        <li><a href="/join">Join the Club</a></li>
         <% } %>
     </ul>
 </nav>
