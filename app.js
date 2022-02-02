@@ -10,23 +10,97 @@ require("dotenv").config();
 
 const indexController = require("./controllers/indexController");
 const userController = require("./controllers/userController");
+const User = require("./models/user");
 
 const mongoDb = process.env.MONGO_URI;
 mongoose.connect(mongoDb, { useUnifiedTopology: true, useNewUrlParser: true });
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "Mongo connection error"));
 
+const MongoStore = require("connect-mongo")(session);
+const sessionStore = new MongoStore({
+  mongooseConnection: db,
+  collection: "sessions",
+});
+
 const app = express();
 app.set("views", __dirname + "/views");
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
-app.use(express.json());
+// app.use(express.json());
+// app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
+app.use(
+  session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: false,
+    store: sessionStore,
+  })
+);
+passport.use(
+  new localStrategy((username, password, done) => {
+    User.findOne({ username: username }, (err, user) => {
+      if (err) {
+        console.error(err);
+        return done(err);
+      }
+      if (!user) {
+        return done(null, false, { message: "Email not found." });
+      }
+      console.log("FIND USER IN DB", user);
+      bcrypt.compare(password, user.password, (err, res) => {
+        if (err) {
+          console.error(err);
+          return done(null, false, { message: "Password problem." });
+        }
+        if (res) {
+          return done(null, user);
+        } else {
+          return done(null, false, { message: "Incorrect password." });
+        }
+      });
+    });
+  })
+);
+
+passport.serializeUser(function (user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function (id, done) {
+  User.findById(id, function (err, user) {
+    if (err) {
+      return done(err);
+    }
+    done(err, user);
+  });
+});
+
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
+
+app.use(function (req, res, next) {
+  res.locals.currentUser = req.user;
+  next();
+});
 
 app.get("/", indexController.index);
 app.get("/sign-up", userController.user_create_get);
 app.post("/sign-up", userController.user_create_post);
 app.get("/log-in", userController.user_login_get);
+app.post(
+  "/log-in",
+  passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/log-in",
+  })
+);
+
+app.get("/log-out", (req, res) => {
+  req.logout();
+  res.redirect("/");
+});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -1,8 +1,15 @@
 <%- include ("./partials/header", { title: title}) %>
 
 <body>
-<h1>Log in to the Members Clubhouse!</h1>
-
+    <h1 class="text-3xl font-bold underline">Log in to the Members Clubhouse!</h1>
+    <p>Membership has its privileges.</p>
+    <form action="" method="POST">
+        <label for="username">Email Address</label>
+        <input type="text" class="form-control block px-3 py-1.5 text-base font-normal text-grey-700 border border-solid border-grey-300" name="username" /><br>
+        <label for="password">Password</label>
+        <input type="password" class="form-control block px-3 py-1.5 text-base font-normal text-grey-700 border border-solid border-grey-300" name="password" /><br>
+        <button type="submit">Log in</button>
+    </form>
 </body>
 
 

@@ -38,6 +38,7 @@ exports.user_create_post = [
       firstname: req.body.firstname,
       lastname: req.body.lastname,
       email: req.body.email,
+      username: req.body.email,
       password: req.body.password,
       isMember: false,
       isAdmin: false,
@@ -60,6 +61,7 @@ exports.user_create_post = [
             console.log(err);
             return next(err);
           }
+          //! should authenticate and redirect to home
           res.redirect("/log-in");
         });
       });
@@ -70,3 +72,32 @@ exports.user_create_post = [
 exports.user_login_get = function (req, res, next) {
   res.render("log-in", { title: "Members Clubhouse - Log in" });
 };
+
+// exports.user_login_post =
+//   body("email", "You must provide a valid email address.")
+//     .isEmail()
+//     .normalizeEmail(),
+
+//   (req, res, next) => {
+//     const errors = validationResult(req);
+//     console.log(errors);
+
+//     let user = new User({
+//       firstname: req.body.firstname,
+//       lastname: req.body.lastname,
+//       email: req.body.email,
+//       password: req.body.password,
+//       isMember: false,
+//       isAdmin: false,
+//     });
+//     if (!errors.isEmpty()) {
+//       res.render("sign-up", {
+//         title: "Members Clubhouse - Sign Up",
+//         user: user,
+//         errors: errors.array(),
+//       });
+//       return;
+//     } else {
+//     }
+//   },
+// ];
