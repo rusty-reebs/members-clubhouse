@@ -6,6 +6,8 @@ const relativeTime = require("dayjs/plugin/relativeTime");
 const User = require("../models/user");
 dayjs.extend(relativeTime);
 
+const pinnedTime = dayjs("2022-02-01").fromNow();
+
 exports.index = function (req, res, next) {
   Post.find({}, "title content author timestamp")
     .sort({ timestamp: -1 })
@@ -17,6 +19,7 @@ exports.index = function (req, res, next) {
       res.render("index", {
         title: "Members Clubhouse - Home",
         posts: posts,
+        pinnedTime: pinnedTime,
       });
     });
 };
