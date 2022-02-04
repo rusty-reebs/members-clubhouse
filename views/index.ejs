@@ -1,47 +1,44 @@
 <%- include ("./partials/header") %>
-<body>
-
-    <h1 class="text-3xl font-bold underline"><%= title %></h1>
+<div class="mx-5">
     <% if (locals.currentUser) { %>
-        <a href="/new-post">Post new message</a>
+        <a href="/new-post" class="inline-block mb-6 p-3 border border-gray-900 border-solid rounded-md bg-dark3 text-dark4">Post new message</a>
     <% } %>
-    <div class="m-10 border border-solid border-gray-900">
-        <h4><span class="text-red-600"><i class="fas fa-thumbtack"></i></span>&nbsp;Welcome to the Members Clubhouse!</h4>
-        <p>Sign up to post messages and become a member to unlock the author and time details! Become an Admin after you make your first post. Or, you may sign in as a <form action="/log-in" method="POST" class="inline"><input type="hidden" name="username" value="guest@guest.com" /><input type="hidden" name="password" value="password123" /><button type="submit">guest</button></form>.</p>
-        <p><i class="fas fa-user"></i>&nbsp;&nbsp;Rusty</p>
-        <p><i class="fas fa-calendar"></i>&nbsp;&nbsp;<%= pinnedTime %></p>
+    <div class="m-0 p-5 border border-solid border-gray-900 rounded-md bg-dark2">
+        <h4 class="mb-3 text-white text-lg"><i class="fas fa-thumbtack text-red"></i>&nbsp;&nbsp;Welcome to the Members Clubhouse!</h4>
+        <p class="text-dark4">Sign up to post messages and become a member to unlock the author and time details! Become an Admin after you make your first post. Or, you may sign in as a <form action="/log-in" method="POST" class="inline"><input type="hidden" name="username" value="guest@guest.com" /><input type="hidden" name="password" value="password123" /><button class="text-white underline decoration-dark4 decoration-2" type="submit">guest</button></form>.</p>
+        <p class="mt-5 text-dark4"><i class="fas fa-user text-dark3"></i>&nbsp;&nbsp;Rusty</p>
+        <p class="text-dark4"><i class="fas fa-calendar text-dark3"></i>&nbsp;&nbsp;<%= pinnedTime %></p>
     </div>
-    <div class="m-10 border border-solid border-gray-900">
-        <h4><span class="text-red-600"><i class="fas fa-thumbtack"></i></span>&nbsp;About this app</h4>
-        <p>Written in Express, Node.js, and EJS. Database by MongoDB. Styled with Tailwind.</p>
-        <p>Authentication and permissions by PassportJS.</p>
-        <p>🤩 Built with enthusiasm by <i class="devicon-github-original colored"></i> <a href="https://github.com/rusty-reebs">rusty-reebs</a></p>
-        <p><i class="fas fa-user"></i>&nbsp;&nbsp;Rusty</p>
-        <p><i class="fas fa-calendar"></i>&nbsp;&nbsp;<%= pinnedTime %></p>
+    <div class="mt-5 p-5 border border-solid border-gray-900 rounded-md bg-dark2">
+        <h4 class="mb-3 text-white text-lg"><i class="fas fa-thumbtack text-red"></i>&nbsp;&nbsp;About this app</h4>
+        <p class="text-dark4">Written in Express, NodeJS, and EJS. Database by MongoDB. Styled with Tailwind.</p>
+        <p class="text-dark4">Authentication and permissions by PassportJS.</p>
+        <p class="text-dark4">🤩 Built with enthusiasm by <i class="devicon-github-original text-white"></i> <a class="text-white underline decoration-dark4 decoration-2" href="https://github.com/rusty-reebs">rusty-reebs</a></p>
+        <p class="mt-5 text-dark4"><i class="fas fa-user text-dark3"></i>&nbsp;&nbsp;Rusty</p>
+        <p class="text-dark4"><i class="fas fa-calendar text-dark3"></i>&nbsp;&nbsp;<%= pinnedTime %></p>
     </div>
     <% posts.forEach((post) => { %>
-        <div class="m-10 border border-solid border-gray-900">
-            <h4><%- post.title %></h4>
-            <p><%- post.content %></p>
+        <div class="my-5 p-5 border border-solid border-gray-900 rounded-md bg-dark2">
+            <h4 class="mb-3 text-white text-lg"><%- post.title %></h4>
+            <p class="text-dark4"><%- post.content %></p>
             <% if (typeof locals.currentUser != "undefined" && locals.currentUser.isMember == true) { %>
-                <p><i class="fas fa-user"></i>&nbsp;&nbsp;<%- post.author.firstname + " " + post.author.lastname %></p>
-                <p><i class="fas fa-calendar"></i>&nbsp;&nbsp;<%- post.timestring %></p>
+                <p class="mt-5 text-dark4"><i class="fas fa-user text-dark3"></i>&nbsp;&nbsp;<%- post.author.firstname + " " + post.author.lastname %></p>
+                <p class="text-dark4"><i class="fas fa-calendar text-dark3"></i>&nbsp;&nbsp;<%- post.timestring %></p>
             <% } else { %>
-                <p><i class="fas fa-user"></i>&nbsp;&nbsp;<span class="blur-sm"><%- post.author.firstname + " " + post.author.lastname %></span></p>
-                <p><i class="fas fa-calendar"></i>&nbsp;&nbsp;<span class="blur-sm"><%- post.timestring %></span></p>
+                <p class="mt-5 text-dark4"><i class="fas fa-user text-dark3"></i>&nbsp;&nbsp;<span class="blur-sm"><%- post.author.firstname + " " + post.author.lastname %></span></p>
+                <p class="text-dark4"><i class="fas fa-calendar text-dark3"></i>&nbsp;&nbsp;<span class="blur-sm"><%- post.timestring %></span></p>
             <% } %>
             <% if (typeof locals.currentUser != "undefined") { %>
                 <% if (locals.currentUser.isAdmin == true) { %>
                 <form action="/" method="POST">
                 <input type="hidden" name="post_id" value="<%- post._id %>" />
-                <button type="submit">Delete</button>
+                <button type="submit" class="inline-block mt-3 p-1 border border-gray-900 border-solid rounded-md bg-dark3 text-dark4">Delete</button>
                 </form>
                 <% } %>
             <% } %>
         </div>
     <% }) %>
-</body>
-
+    </div>
 
 
 <%- include ("./partials/footer") %>

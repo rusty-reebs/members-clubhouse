@@ -17,7 +17,7 @@ exports.index = function (req, res, next) {
         return next(err);
       }
       res.render("index", {
-        title: "Members Clubhouse - Home",
+        title: "Members Clubhouse",
         posts: posts,
         pinnedTime: pinnedTime,
       });

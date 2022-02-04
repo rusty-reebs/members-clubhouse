@@ -5,26 +5,37 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="output.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.14.0/devicon.min.css">
     <script src="https://kit.fontawesome.com/7a5767171f.js" crossorigin="anonymous"></script>
     <title>Members Clubhouse</title>
 </head>
-<nav>
-    <ul>
-        <li><a href="/">Home</a></li>
+<body class="bg-dark1 font-noto">
+<nav class="flex flex-wrap items-center justify-between p-5 bg-dark1">
+    <h1 class="text-white text-2xl"><i class="fas fa-house-user"></i>&nbsp;Members Clubhouse</h1>
+    <div class="flex md:hidden text-dark3">
+        <button id="hamburger">
+            <p class="toggle block text-2xl"><i class="fas fa-bars"></i><p/>
+            <p class="toggle hidden text-2xl"><i class="fas fa-window-close"></i></p>
+        </button>
+    </div>
+    <div class="toggle hidden md:flex w-full md:w-auto text-right text-bold mt-5 md:mt-0 border-t-2 border-dark2 md:border-none">
+        <a href="/" class="block md:inline-block text-dark3 hover:text-dark4 px-3 py-3 border-b-2 border-dark2 md:border-none">Home</a>
         <% if (typeof locals.currentUser == "undefined") { %>
-        <li><a href="/sign-up">Sign up</a></li>
-        <li><a href="/log-in">Log In</a></li>
+        <a href="/sign-up" class="block md:inline-block text-dark3 hover:text-dark4 px-3 py-3 border-b-2 border-dark2 md:border-none">Sign up</a>
+        <a href="/log-in" class="block md:inline-block text-dark3 hover:text-dark4 px-3 py-3 border-b-2 border-dark2 md:border-none">Log In</a>
         <% } %>
         <% if (locals.currentUser) { %>
-        <li><a href="/log-out">Log Out</a></li>
-        <li><i class="fas fa-user-circle"></i> <%= locals.currentUser.firstname %></li>
+            <p class="block md:inline-block text-dark3 hover:text-dark4 px-3 py-3 border-b-2 border-dark2 md:border-none"><i class="fas fa-user-circle"></i> <%= locals.currentUser.firstname %></p>
+            <a href="/log-out" class="block md:inline-block text-dark3 hover:text-dark4 px-3 py-3 border-b-2 border-dark2 md:border-none">Log Out</a>
         <% } %>
         <% if (typeof locals.currentUser != "undefined" && !locals.currentUser.isMember) { %>
-        <li><a href="/join">Join the Club</a></li>
+        <a href="/join" class="block md:inline-block text-dark3 hover:text-dark4 px-3 py-3 border-b-2 border-dark2 md:border-none">Join the Club</a>
         <% } %>
         <% if (typeof locals.currentUser != "undefined" && locals.currentUser.firstname !== "guest" && !locals.currentUser.isAdmin && posts.some((post) => post.author.username === locals.currentUser.username)) { %>
-        <li><a href="/admin"><span class="text-yellow-300w"><i class="fas fa-star"></i></span> Become an Admin</a></li>
+        <a href="/admin" class="block md:inline-block text-dark3 hover:text-dark4 px-3 py-3 border-b-2 border-dark2 md:border-none"><span class="text-yellow-300w"><i class="fas fa-star"></i></span> Become an Admin</a>
         <% } %>
-    </ul>
+    </div>
 </nav>
