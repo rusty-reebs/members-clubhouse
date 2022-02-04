@@ -3,7 +3,7 @@
     <h1 class="text-3xl font-bold underline"><%= currentUser.firstname + ", join the Club!" %></h1>
     <h2>Enter the code MEMBER to unlock the rest of the Clubhouse features!</h2>
     <form action="" method="POST">
-        <input class="form-control block px-3 py-1.5 text-base font-normal text-grey-700 border border-solid border-grey-300" name="code" />
+        <input type="text" class="form-control block px-3 py-1.5 text-base font-normal text-grey-700 border border-solid border-grey-300" name="code" />
         <button type="submit">Submit</button>
     </form>
     <% if (typeof errors != "undefined") { %>

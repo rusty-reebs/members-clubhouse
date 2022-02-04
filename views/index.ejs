@@ -6,13 +6,13 @@
         <a href="/new-post">Post new message</a>
     <% } %>
     <div class="m-10 border border-solid border-gray-900">
-        <h4><i class="fas fa-thumbtack"></i>&nbsp;Welcome to the Members Clubhouse!</h4>
-        <p>Sign up to post messages, and become a member to unlock the author and time details!</p>
+        <h4><span class="text-red-600"><i class="fas fa-thumbtack"></i></span>&nbsp;Welcome to the Members Clubhouse!</h4>
+        <p>Sign up to post messages and become a member to unlock the author and time details!</p>
         <p><i class="fas fa-user"></i>&nbsp;&nbsp;Rusty</p>
         <p><i class="fas fa-calendar"></i>&nbsp;&nbsp;<%= pinnedTime %></p>
     </div>
     <div class="m-10 border border-solid border-gray-900">
-        <h4><i class="fas fa-thumbtack"></i>&nbsp;About this app</h4>
+        <h4><span class="text-red-600"><i class="fas fa-thumbtack"></i></span>&nbsp;About this app</h4>
         <p>Written in Express, Node.js, and EJS. Database by MongoDB. Styled with Tailwind.</p>
         <p>Authentication and permissions by PassportJS.</p>
         <p>🤩 Built with enthusiasm by <i class="devicon-github-original colored"></i> <a href="https://github.com/rusty-reebs">rusty-reebs</a></p>
@@ -32,7 +32,10 @@
             <% } %>
             <% if (typeof locals.currentUser != "undefined") { %>
                 <% if (locals.currentUser.isAdmin == true) { %>
-                <button>Delete</button>
+                <form action="/" method="POST">
+                <input type="hidden" name="post_id" value="<%- post._id %>" />
+                <button type="submit">Delete</button>
+                </form>
                 <% } %>
             <% } %>
         </div>

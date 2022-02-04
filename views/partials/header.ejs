@@ -23,5 +23,8 @@
         <% if (typeof locals.currentUser != "undefined" && !locals.currentUser.isMember) { %>
         <li><a href="/join">Join the Club</a></li>
         <% } %>
+        <% if (typeof locals.currentUser != "undefined" && !locals.currentUser.isAdmin && posts.some((post) => post.author.username === locals.currentUser.username)) { %>
+        <li><a href="/admin"><span class="text-yellow-300w"><i class="fas fa-star"></i></span> Become an Admin</a></li>
+        <% } %>
     </ul>
 </nav>

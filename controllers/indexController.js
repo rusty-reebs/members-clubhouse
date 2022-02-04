@@ -25,7 +25,12 @@ exports.index = function (req, res, next) {
 };
 
 exports.join_get = function (req, res, next) {
-  res.render("join", { title: "Members Clubhouse - Join " });
+  Post.find({}, "author").exec(function (err, posts) {
+    if (err) {
+      return next(err);
+    }
+    res.render("join", { title: "Members Clubhouse - Join ", posts: posts });
+  });
 };
 
 exports.join_post = [
@@ -60,8 +65,37 @@ exports.join_post = [
   },
 ];
 
+exports.admin_get = function (req, res, next) {
+  Post.find({}, "author").exec(function (err, posts) {
+    if (err) {
+      return next(err);
+    }
+    res.render("admin", {
+      title: "Members Clubhouse - Become an admin",
+      posts: posts,
+    });
+  });
+};
+
+exports.admin_post = function (req, res, next) {
+  User.findByIdAndUpdate(req.user._id, { isAdmin: true }, function (err, user) {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/");
+  });
+};
+
 exports.new_post_get = function (req, res, next) {
-  res.render("new-post", { title: "Members Clubhouse - New Post" });
+  Post.find({}, "author").exec(function (err, posts) {
+    if (err) {
+      return next(err);
+    }
+    res.render("new-post", {
+      title: "Members Clubhouse - New Post",
+      posts: posts,
+    });
+  });
 };
 
 exports.new_post_post = [
@@ -80,7 +114,6 @@ exports.new_post_post = [
       author: req.user._id,
       timestamp: new dayjs(),
     });
-    console.log(post);
     if (!errors.isEmpty()) {
       res.render("new-post", {
         title: "Members Clubhouse - New Post",
@@ -99,3 +132,12 @@ exports.new_post_post = [
     }
   },
 ];
+
+exports.delete_post = function (req, res, next) {
+  Post.findByIdAndRemove(req.body.post_id, function deletePost(err) {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/");
+  });
+};

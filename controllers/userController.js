@@ -62,7 +62,6 @@ exports.user_create_post = [
             console.log(err);
             return next(err);
           }
-          //! should authenticate and redirect to home
           res.redirect("/log-in");
         });
       });

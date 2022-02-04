@@ -94,6 +94,7 @@ const authenticated = (req, res, next) => {
 };
 
 app.get("/", indexController.index);
+app.post("/", indexController.delete_post);
 app.get("/sign-up", userController.user_create_get);
 app.post("/sign-up", userController.user_create_post);
 app.get("/log-in", userController.user_login_get);
@@ -109,6 +110,9 @@ app.post("/new-post", authenticated, indexController.new_post_post);
 
 app.get("/join", authenticated, indexController.join_get);
 app.post("/join", authenticated, indexController.join_post);
+
+app.get("/admin", authenticated, indexController.admin_get);
+app.post("/admin", authenticated, indexController.admin_post);
 
 app.get("/log-out", (req, res) => {
   req.logout();
