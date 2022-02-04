@@ -476,6 +476,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   display: block;
 }
 
+.inline {
+  display: inline;
+}
+
+.hidden {
+  display: none;
+}
+
 .border {
   border-width: 1px;
 }

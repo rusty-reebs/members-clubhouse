@@ -50,7 +50,6 @@ passport.use(
       if (!user) {
         return done(null, false, { message: "Email not found." });
       }
-      console.log("FIND USER IN DB", user);
       bcrypt.compare(password, user.password, (err, res) => {
         if (err) {
           console.error(err);
@@ -89,7 +88,7 @@ app.use(function (req, res, next) {
 });
 
 const authenticated = (req, res, next) => {
-  console.log(req.isAuthenticated);
+  console.log("AUTHENTICATION", req.isAuthenticated());
   req.isAuthenticated() ? next() : res.redirect("/");
 };
 
@@ -105,6 +104,7 @@ app.post(
     failureRedirect: "/",
   })
 );
+
 app.get("/new-post", authenticated, indexController.new_post_get);
 app.post("/new-post", authenticated, indexController.new_post_post);
 
