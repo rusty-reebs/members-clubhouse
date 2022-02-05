@@ -1,24 +1,24 @@
 <%- include ("./partials/header") %>
-<div class="mx-5">
+<div class="mx-5 mb-5 flex flex-col">
     <% if (locals.currentUser) { %>
-        <a href="/new-post" class="inline-block mb-6 p-3 border border-gray-900 border-solid rounded-md bg-dark3 text-dark4">Post new message</a>
+        <a href="/new-post" class="inline-block mb-6 p-3 mx-auto border border-gray-900 border-solid rounded-md bg-dark3 text-dark4 hover:bg-dark2 hover:text-dark4">Post new message</a>
     <% } %>
     <div class="m-0 p-5 border border-solid border-gray-900 rounded-md bg-dark2">
-        <h4 class="mb-3 text-white text-lg"><i class="fas fa-thumbtack text-red"></i>&nbsp;&nbsp;Welcome to the Members Clubhouse!</h4>
-        <p class="text-dark4">Sign up to post messages and become a member to unlock the author and time details! Become an Admin after you make your first post. Or, you may sign in as a <form action="/log-in" method="POST" class="inline"><input type="hidden" name="username" value="guest@guest.com" /><input type="hidden" name="password" value="password123" /><button class="text-white underline decoration-dark4 decoration-2" type="submit">guest</button></form>.</p>
+        <h4 class="mb-3 text-white text-lg"><i class="fas fa-thumbtack text-green"></i>&nbsp;&nbsp;Welcome to the Members Clubhouse!</h4>
+        <p class="text-dark4">Sign up to post messages and become a member to unlock the author and time details! Become an Admin after you make your first post. Or, you may sign in as a <form action="/log-in" method="POST" class="inline"><input type="hidden" name="username" value="guest@guest.com" /><input type="hidden" name="password" value="password123" /><button class="text-white underline underline-offset-2 decoration-dark4 decoration-2" type="submit">guest</button></form>.</p>
         <p class="mt-5 text-dark4"><i class="fas fa-user text-dark3"></i>&nbsp;&nbsp;Rusty</p>
         <p class="text-dark4"><i class="fas fa-calendar text-dark3"></i>&nbsp;&nbsp;<%= pinnedTime %></p>
     </div>
     <div class="mt-5 p-5 border border-solid border-gray-900 rounded-md bg-dark2">
-        <h4 class="mb-3 text-white text-lg"><i class="fas fa-thumbtack text-red"></i>&nbsp;&nbsp;About this app</h4>
+        <h4 class="mb-3 text-white text-lg"><i class="fas fa-thumbtack text-green"></i>&nbsp;&nbsp;About this app</h4>
         <p class="text-dark4">Written in Express, NodeJS, and EJS. Database by MongoDB. Styled with Tailwind.</p>
         <p class="text-dark4">Authentication and permissions by PassportJS.</p>
-        <p class="text-dark4">🤩 Built with enthusiasm by <i class="devicon-github-original text-white"></i> <a class="text-white underline decoration-dark4 decoration-2" href="https://github.com/rusty-reebs">rusty-reebs</a></p>
+        <p class="text-dark4">🤩 Built with enthusiasm by <i class="devicon-github-original text-white"></i> <a class="text-white underline underline-offset-2 decoration-dark4 decoration-2" href="https://github.com/rusty-reebs">rusty-reebs</a></p>
         <p class="mt-5 text-dark4"><i class="fas fa-user text-dark3"></i>&nbsp;&nbsp;Rusty</p>
         <p class="text-dark4"><i class="fas fa-calendar text-dark3"></i>&nbsp;&nbsp;<%= pinnedTime %></p>
     </div>
     <% posts.forEach((post) => { %>
-        <div class="my-5 p-5 border border-solid border-gray-900 rounded-md bg-dark2">
+        <div class="mt-5 p-5 border border-solid border-gray-900 rounded-md bg-dark2">
             <h4 class="mb-3 text-white text-lg"><%- post.title %></h4>
             <p class="text-dark4"><%- post.content %></p>
             <% if (typeof locals.currentUser != "undefined" && locals.currentUser.isMember == true) { %>
@@ -32,7 +32,7 @@
                 <% if (locals.currentUser.isAdmin == true) { %>
                 <form action="/" method="POST">
                 <input type="hidden" name="post_id" value="<%- post._id %>" />
-                <button type="submit" class="inline-block mt-3 p-1 border border-gray-900 border-solid rounded-md bg-dark3 text-dark4">Delete</button>
+                <button type="submit" class="inline-block mt-3 p-1 border border-gray-900 border-solid rounded-md bg-dark3 text-dark4 hover:bg-dark2 hover:text-dark4">Delete</button>
                 </form>
                 <% } %>
             <% } %>

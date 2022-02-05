@@ -92,7 +92,7 @@ exports.new_post_get = function (req, res, next) {
       return next(err);
     }
     res.render("new-post", {
-      title: "Members Clubhouse - New Post",
+      title: "New Message",
       posts: posts,
     });
   });

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="house-user-solid.svg" sizes="any" type="image/svg+xml">
     <link href="output.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,7 +15,7 @@
 </head>
 <body class="bg-dark1 font-noto">
 <nav class="flex flex-wrap items-center justify-between p-5 bg-dark1">
-    <h1 class="text-white text-2xl"><i class="fas fa-house-user"></i>&nbsp;Members Clubhouse</h1>
+    <h1 class="text-white text-2xl"><a href="/"><i class="fas fa-house-user"></i></a>&nbsp;Members Clubhouse</h1>
     <div class="flex md:hidden text-dark3">
         <button id="hamburger">
             <p class="toggle block text-2xl"><i class="fas fa-bars"></i><p/>
@@ -23,19 +24,19 @@
     </div>
     <div class="toggle hidden md:flex w-full md:w-auto text-right text-bold mt-5 md:mt-0 border-t-2 border-dark2 md:border-none">
         <a href="/" class="block md:inline-block text-dark3 hover:text-dark4 px-3 py-3 border-b-2 border-dark2 md:border-none">Home</a>
+        <% if (typeof locals.currentUser != "undefined" && !locals.currentUser.isMember) { %>
+        <a href="/join" class="block md:inline-block text-dark3 hover:text-dark4 px-3 py-3 border-b-2 border-dark2 md:border-none"><i class="fas fa-user-plus text-yellow"></i>&nbsp;&nbsp;Join the Club</a>
+        <% } %>
+        <% if (typeof locals.currentUser != "undefined" && locals.currentUser.firstname !== "guest" && !locals.currentUser.isAdmin && posts.some((post) => post.author.username === locals.currentUser.username)) { %>
+        <a href="/admin" class="block md:inline-block text-dark3 hover:text-dark4 px-3 py-3 border-b-2 border-dark2 md:border-none"><span class="text-yellow-300w"><i class="fas fa-star text-yellow"></i></span>&nbsp;&nbsp;Become an Admin</a>
+        <% } %>
         <% if (typeof locals.currentUser == "undefined") { %>
-        <a href="/sign-up" class="block md:inline-block text-dark3 hover:text-dark4 px-3 py-3 border-b-2 border-dark2 md:border-none">Sign up</a>
+        <a href="/sign-up" class="block md:inline-block text-dark3 hover:text-dark4 px-3 py-3 border-b-2 border-dark2 md:border-none">Sign Up</a>
         <a href="/log-in" class="block md:inline-block text-dark3 hover:text-dark4 px-3 py-3 border-b-2 border-dark2 md:border-none">Log In</a>
         <% } %>
         <% if (locals.currentUser) { %>
             <p class="block md:inline-block text-dark3 hover:text-dark4 px-3 py-3 border-b-2 border-dark2 md:border-none"><i class="fas fa-user-circle"></i> <%= locals.currentUser.firstname %></p>
             <a href="/log-out" class="block md:inline-block text-dark3 hover:text-dark4 px-3 py-3 border-b-2 border-dark2 md:border-none">Log Out</a>
-        <% } %>
-        <% if (typeof locals.currentUser != "undefined" && !locals.currentUser.isMember) { %>
-        <a href="/join" class="block md:inline-block text-dark3 hover:text-dark4 px-3 py-3 border-b-2 border-dark2 md:border-none">Join the Club</a>
-        <% } %>
-        <% if (typeof locals.currentUser != "undefined" && locals.currentUser.firstname !== "guest" && !locals.currentUser.isAdmin && posts.some((post) => post.author.username === locals.currentUser.username)) { %>
-        <a href="/admin" class="block md:inline-block text-dark3 hover:text-dark4 px-3 py-3 border-b-2 border-dark2 md:border-none"><span class="text-yellow-300w"><i class="fas fa-star"></i></span> Become an Admin</a>
         <% } %>
     </div>
 </nav>

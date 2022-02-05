@@ -1,15 +1,19 @@
 <%- include ("./partials/header") %>
-
-    <h1 class="text-3xl font-bold underline"><%= title %></h1>
-    <form action="" method="POST">
-        <label for="title">Title</label>
-        <% let post_title = (typeof post == "undefined" ? "" : post.title) %>
-        <input type="text" class="form-control block px-3 py-1.5 text-base font-normal text-grey-700 border border-solid border-grey-300" name="title" value="<%= post_title %>" /><br>
-        <label for="content">Message</label>
-        <% let post_content = (typeof post == "undefined" ? "" : post.content) %>
-        <input type="text" class="form-control block px-3 py-1.5 text-base font-normal text-grey-700 border border-solid border-grey-300" name="content" value="<%= post_content %>" /><br>
-        <button type="submit">Post</button>
-    </form>
+<div class="mx-5">
+    <div class="my-5 p-5 border border-solid border-gray-900 rounded-md bg-dark2">
+    <h1 class="text-xl text-white"><%= title %></h1>
+    </div>
+    <div class="my-5 p-5 border border-solid border-gray-900 rounded-md bg-dark2">
+        <form action="" method="POST">
+            <label for="title" class="text-white">Title</label>
+            <% let post_title = (typeof post == "undefined" ? "" : post.title) %>
+            <input type="text" class="form-control block mt-3 py-1.5 w-full text-base font-normal text-grey-700 border border-solid border-grey-300 bg-dark3 text-dark4" name="title" value="<%= post_title %>" /><br>
+            <label for="content" class="text-white">Message</label>
+            <% let post_content = (typeof post == "undefined" ? "" : post.content) %>
+            <textarea type="text" maxlength="1000" rows="5" class="form-control block mt-3 py-1.5 w-full text-base font-normal text-grey-700 border border-solid border-grey-300 bg-dark3 text-dark4" name="content" value="<%= post_content %>"></textarea><br>
+            <button type="submit" class="inline-block mt-3 py-1 px-2 border border-gray-900 border-solid rounded-md bg-dark3 text-dark4 hover:bg-dark2 hover:text-dark4">Post</button>
+        </form>
+    </div>
     <% if (typeof errors != "undefined") { %>
         <ul>
             <% errors.forEach((error) => { %>
@@ -17,5 +21,5 @@
             <% }) %>
         </ul>
     <% } %>
-
+</div>
 <%- include ("./partials/footer") %>

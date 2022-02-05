@@ -1,10 +1,16 @@
 <%- include ("./partials/header") %>
-    <h1 class="text-3xl font-bold underline"><%= currentUser.firstname + ", join the Club!" %></h1>
-    <h2>Enter the code MEMBER to unlock the rest of the Clubhouse features!</h2>
+<div class="mx-5">
+<div class="my-5 p-5 border border-solid border-gray-900 rounded-md bg-dark2">
+    <h1 class="text-xl text-white"><%= currentUser.firstname + ", join the Club!" %></h1>
+    <p class="mt-4 text-dark4">Enter the code <span class="text-white underline decoration-white underline-offset-2 decoration-2">MEMBER</span> to unlock the rest of the Clubhouse features!</p>
+</div>
+<div class="my-5 p-5 border border-solid border-gray-900 rounded-md bg-dark2">
     <form action="" method="POST">
-        <input type="text" class="form-control block px-3 py-1.5 text-base font-normal text-grey-700 border border-solid border-grey-300" name="code" />
-        <button type="submit">Submit</button>
+        <label for="code" class="text-white">Enter code</label>
+        <input type="text" class="form-control block mt-3 px-3 py-1.5 text-base font-normal text-grey-700 border border-solid border-grey-300 bg-dark3 text-dark4" name="code" /><br>
+        <button type="submit" class="inline-block mt-3 py-1 px-2 border border-gray-900 border-solid rounded-md bg-dark3 text-dark4 hover:bg-dark2 hover:text-dark4">Submit</button>
     </form>
+</div>
     <% if (typeof errors != "undefined") { %>
         <ul>
             <% errors.forEach((error) => { %>
@@ -12,5 +18,5 @@
             <% }) %>
         </ul>
     <% } %>
-
+</div>
 <%- include ("./partials/footer") %>

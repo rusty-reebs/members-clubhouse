@@ -1,15 +1,19 @@
 <%- include ("./partials/header", { title: title}) %>
-
-    <h1 class="text-3xl font-bold underline">Log in to the Members Clubhouse!</h1>
-    <p>Membership has its privileges.</p>
+<div class="mx-5">
+    <div class="my-5 p-5 border border-solid border-gray-900 rounded-md bg-dark2">
+    <h1 class="text-xl text-white">Log in to the Members Clubhouse!</h1>
+    <p class="mt-4 text-dark4">Membership has its privileges.</p>
+    </div>
+    <div class="my-5 p-5 border border-solid border-gray-900 rounded-md bg-dark2">
     <form action="" method="POST">
-        <label for="username">Email Address</label>
-        <input type="text" class="form-control block px-3 py-1.5 text-base font-normal text-grey-700 border border-solid border-grey-300" name="username" /><br>
-        <label for="password">Password</label>
-        <input type="password" class="form-control block px-3 py-1.5 text-base font-normal text-grey-700 border border-solid border-grey-300" name="password" /><br>
-        <button type="submit">Log in</button>
+        <label for="username" class="text-white">Email Address</label>
+        <input type="text" class="form-control block mt-3 px-3 py-1.5 text-base font-normal text-grey-700 border border-solid border-grey-300 bg-dark3 text-dark4" name="username" /><br>
+        <label for="password" class="text-white">Password</label>
+        <input type="password" class="form-control block mt-3 px-3 py-1.5 text-base font-normal text-grey-700 border border-solid border-grey-300 bg-dark3 text-dark4" name="password" /><br>
+        <button type="submit" class="inline-block mt-3 py-1 px-2 border border-gray-900 border-solid rounded-md bg-dark3 text-dark4 hover:bg-dark2 hover:text-dark4">Log in</button>
     </form>
+    </div>
 <!-- no error message for wrong email -->
 
-
+</div>
 <%- include ("./partials/footer") %>
