@@ -17,10 +17,7 @@ exports.user_create_post = [
   body("email", "You must provide a valid email address.")
     .isEmail()
     .normalizeEmail(),
-  body(
-    "password",
-    "Your password must contain at least 6 characters including: 1 lowercase letter, 1 uppercase letter, and 1 number."
-  )
+  body("password", "Your password must contain at least 6 characters.")
     .trim()
     .isLength({ min: 6 })
     .escape(),

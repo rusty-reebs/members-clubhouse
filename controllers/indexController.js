@@ -39,14 +39,18 @@ exports.join_post = [
     const errors = validationResult(req);
     console.log(errors);
     let inputCode = req.body.code;
-
     if (!errors.isEmpty()) {
-      res.render("new-post", {
-        title: "Members Clubhouse - New Post",
-        code: inputCode,
-        errors: errors.array(),
+      Post.find({}, "author").exec(function (err, posts) {
+        if (err) {
+          return next(err);
+        }
+        res.render("join", {
+          title: "Members Clubhouse - join",
+          code: inputCode,
+          posts: posts,
+          errors: errors.array(),
+        });
       });
-      return;
     } else {
       if (inputCode === "MEMBER") {
         User.findByIdAndUpdate(
@@ -115,12 +119,17 @@ exports.new_post_post = [
       timestamp: new dayjs(),
     });
     if (!errors.isEmpty()) {
-      res.render("new-post", {
-        title: "Members Clubhouse - New Post",
-        message: message,
-        errors: errors.array(),
+      Post.find({}, "author").exec(function (err, posts) {
+        if (err) {
+          return next(err);
+        }
+        res.render("new-post", {
+          title: "New Message",
+          post: post,
+          posts: posts,
+          errors: errors.array(),
+        });
       });
-      return;
     } else {
       post.save(function (err) {
         if (err) {

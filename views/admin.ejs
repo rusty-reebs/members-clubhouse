@@ -10,12 +10,5 @@
         <button type="submit" class="inline-block py-1 px-2 border border-gray-900 border-solid rounded-md bg-dark3 text-dark4 hover:bg-dark2 hover:text-dark4">Become an Admin</button>
     </form>
     </div>
-    <% if (typeof errors != "undefined") { %>
-        <ul>
-            <% errors.forEach((error) => { %>
-                <li><%= error.msg %></li>
-            <% }) %>
-        </ul>
-    <% } %>
 </div>
 <%- include ("./partials/footer") %>

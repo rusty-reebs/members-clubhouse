@@ -3,6 +3,15 @@
     <div class="my-5 p-5 border border-solid border-gray-900 rounded-md bg-dark2">
     <h1 class="text-xl text-white"><%= title %></h1>
     </div>
+    <% if (typeof errors != "undefined") { %>
+        <div class="my-5 p-5 border border-solid border-gray-900 rounded-md bg-dark2">
+        <ul>
+            <% errors.forEach((error) => { %>
+                <li class="text-dark4"><%= error.msg %></li>
+            <% }) %>
+        </ul>
+        </div>
+    <% } %>
     <div class="my-5 p-5 border border-solid border-gray-900 rounded-md bg-dark2">
         <form action="" method="POST">
             <label for="title" class="text-white">Title</label>
@@ -14,12 +23,6 @@
             <button type="submit" class="inline-block mt-3 py-1 px-2 border border-gray-900 border-solid rounded-md bg-dark3 text-dark4 hover:bg-dark2 hover:text-dark4">Post</button>
         </form>
     </div>
-    <% if (typeof errors != "undefined") { %>
-        <ul>
-            <% errors.forEach((error) => { %>
-                <li><%= error.msg %></li>
-            <% }) %>
-        </ul>
-    <% } %>
+    
 </div>
 <%- include ("./partials/footer") %>

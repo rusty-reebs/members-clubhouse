@@ -31,7 +31,6 @@ app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
 app.use(logger("dev"));
 // app.use(express.json());
-// app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
 app.use(
   session({
     secret: process.env.SECRET,
@@ -48,6 +47,7 @@ passport.use(
         return done(err);
       }
       if (!user) {
+        console.log("User not FOUND");
         return done(null, false, { message: "Email not found." });
       }
       bcrypt.compare(password, user.password, (err, res) => {
@@ -101,7 +101,8 @@ app.post(
   "/log-in",
   passport.authenticate("local", {
     successRedirect: "/",
-    failureRedirect: "/",
+    failureRedirect: "/log-in",
+    failureMessage: true,
   })
 );
 
