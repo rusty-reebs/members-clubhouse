@@ -1,10 +1,10 @@
 <%- include ("./partials/header") %>
-<div class="mx-5">
+<div class="mx-5 md:w-3/4 md:mx-auto">
     <div class="my-5 p-5 border border-solid border-gray-900 rounded-md bg-dark2">
     <h1 class="text-xl text-white"><%= currentUser.firstname + ", because you have made at least one post, you are invited to become an Admin!" %></h1>
     <p class="mt-4 text-dark4">Admins can delete posts.</p>
     </div>
-    <div class="my-5 p-5 border border-solid border-gray-900 rounded-md bg-dark2">
+    <div class="my-5 p-5 md:w-1/2 border border-solid border-gray-900 rounded-md bg-dark2">
     <form action="" method="POST">
         <input type="hidden" class="form-control" name="admin" />
         <button type="submit" class="inline-block py-1 px-2 border border-gray-900 border-solid rounded-md bg-dark3 text-dark4 hover:bg-dark2 hover:text-dark4">Become an Admin</button>

@@ -47,7 +47,6 @@ passport.use(
         return done(err);
       }
       if (!user) {
-        console.log("User not FOUND");
         return done(null, false, { message: "Email not found." });
       }
       bcrypt.compare(password, user.password, (err, res) => {

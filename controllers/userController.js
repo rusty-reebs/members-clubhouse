@@ -69,3 +69,11 @@ exports.user_create_post = [
 exports.user_login_get = function (req, res, next) {
   res.render("log-in", { title: "Members Clubhouse - Log in" });
 };
+
+// exports.user_login_post = function (req, res, next) {
+//     Post.find({}, "author").exec(function (err, posts) {
+//         if (err) {
+//           return next(err);
+//         }
+//         res.render
+// }

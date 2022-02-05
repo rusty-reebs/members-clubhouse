@@ -3,13 +3,13 @@
     <% if (locals.currentUser) { %>
         <a href="/new-post" class="inline-block mb-6 p-3 mx-auto border border-gray-900 border-solid rounded-md bg-dark3 text-dark4 hover:bg-dark2 hover:text-dark4">Post new message</a>
     <% } %>
-    <div class="m-0 p-5 border border-solid border-gray-900 rounded-md bg-dark2">
+    <div class="m-0 p-5 md:w-3/4 md:mx-auto border border-solid border-gray-900 rounded-md bg-dark2">
         <h4 class="mb-3 text-white text-lg"><i class="fas fa-thumbtack text-green"></i>&nbsp;&nbsp;Welcome to the Members Clubhouse!</h4>
-        <p class="text-dark4">Sign up to post messages and become a member to unlock the author and time details! Become an Admin after you make your first post. Or, you may sign in as a <form action="/log-in" method="POST" class="inline"><input type="hidden" name="username" value="guest@guest.com" /><input type="hidden" name="password" value="password123" /><button class="text-white underline underline-offset-2 decoration-dark4 decoration-2" type="submit">guest</button></form>.</p>
+        <form action="/log-in" method="POST" class="inline-block"><p class="text-dark4">Sign up to post messages and become a member to unlock the author and time details! Become an Admin after you make your first post. Or, you may sign in as a <input type="hidden" name="username" value="guest@guest.com"/><input type="hidden" name="password" value="password123"/><button class="text-white underline underline-offset-2 decoration-dark4 decoration-2 inline-block" type="submit">guest</button>.</p></form>
         <p class="mt-5 text-dark4"><i class="fas fa-user text-dark3"></i>&nbsp;&nbsp;Rusty</p>
         <p class="text-dark4"><i class="fas fa-calendar text-dark3"></i>&nbsp;&nbsp;<%= pinnedTime %></p>
     </div>
-    <div class="mt-5 p-5 border border-solid border-gray-900 rounded-md bg-dark2">
+    <div class="mt-5 p-5 md:w-3/4 md:mx-auto border border-solid border-gray-900 rounded-md bg-dark2">
         <h4 class="mb-3 text-white text-lg"><i class="fas fa-thumbtack text-green"></i>&nbsp;&nbsp;About this app</h4>
         <p class="text-dark4">Written in Express, NodeJS, and EJS. Database by MongoDB. Styled with Tailwind.</p>
         <p class="text-dark4">Authentication and permissions by PassportJS.</p>
@@ -18,7 +18,7 @@
         <p class="text-dark4"><i class="fas fa-calendar text-dark3"></i>&nbsp;&nbsp;<%= pinnedTime %></p>
     </div>
     <% posts.forEach((post) => { %>
-        <div class="mt-5 p-5 border border-solid border-gray-900 rounded-md bg-dark2">
+        <div class="mt-5 p-5 md:w-3/4 md:mx-auto border border-solid border-gray-900 rounded-md bg-dark2">
             <h4 class="mb-3 text-white text-lg"><%- post.title %></h4>
             <p class="text-dark4"><%- post.content %></p>
             <% if (typeof locals.currentUser != "undefined" && locals.currentUser.isMember == true) { %>

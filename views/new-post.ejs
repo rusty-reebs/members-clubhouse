@@ -1,5 +1,5 @@
 <%- include ("./partials/header") %>
-<div class="mx-5">
+<div class="mx-5 md:w-3/4 md:mx-auto">
     <div class="my-5 p-5 border border-solid border-gray-900 rounded-md bg-dark2">
     <h1 class="text-xl text-white"><%= title %></h1>
     </div>
@@ -12,7 +12,7 @@
         </ul>
         </div>
     <% } %>
-    <div class="my-5 p-5 border border-solid border-gray-900 rounded-md bg-dark2">
+    <div class="my-5 p-5 md:w-1/2 border border-solid border-gray-900 rounded-md bg-dark2">
         <form action="" method="POST">
             <label for="title" class="text-white">Title</label>
             <% let post_title = (typeof post == "undefined" ? "" : post.title) %>
