@@ -2,7 +2,8 @@
 
 const User = require("../models/user");
 const { body, check, validationResult } = require("express-validator");
-const bcrypt = require("bcryptjs/dist/bcrypt");
+const bcrypt = require("bcryptjs");
+const async = require("async");
 
 exports.user_create_get = function (req, res, next) {
   res.render("sign-up", { title: "Members Clubhouse - Sign up" });
@@ -27,7 +28,7 @@ exports.user_create_post = [
     }
     return true;
   }),
-  (req, res, next) => {
+  async (req, res, next) => {
     const errors = validationResult(req);
     console.log(errors);
 
@@ -47,21 +48,41 @@ exports.user_create_post = [
         user: user,
         errors: errors.array(),
       });
-      return;
     } else {
-      bcrypt.hash(req.body.password, 10, (err, hashedPassword) => {
-        if (err) {
-          return next(err);
-        }
-        user.password = hashedPassword;
-        user.save(function (err) {
+      let userResult = await User.findOne({ email: user.email });
+      // if (err) {
+      //   return next(err);
+      // }
+      if (userResult) {
+        res.render("sign-up", {
+          title: "Members Clubhouse - Sign Up",
+          user: user,
+          errors: [{ msg: "Email already exists." }],
+        });
+      } else {
+        // if (!errors.isEmpty()) {
+        //   res.render("sign-up", {
+        //     title: "Members Clubhouse - Sign Up",
+        //     user: user,
+        //     errors: errors.array(),
+        //   });
+
+        // return;
+
+        bcrypt.hash(req.body.password, 10, (err, hashedPassword) => {
           if (err) {
-            console.log(err);
             return next(err);
           }
-          res.redirect("/log-in");
+          user.password = hashedPassword;
+          user.save(function (err) {
+            if (err) {
+              console.log(err);
+              return next(err);
+            }
+            res.redirect("/log-in");
+          });
         });
-      });
+      }
     }
   },
 ];
@@ -70,10 +91,55 @@ exports.user_login_get = function (req, res, next) {
   res.render("log-in", { title: "Members Clubhouse - Log in" });
 };
 
-// exports.user_login_post = function (req, res, next) {
-//     Post.find({}, "author").exec(function (err, posts) {
-//         if (err) {
-//           return next(err);
-//         }
-//         res.render
-// }
+exports.user_login_post = [
+  body("username", "You must enter a valid email address.")
+    .isEmail()
+    .normalizeEmail(),
+
+  (req, res, next) => {
+    const errors = validationResult(req);
+    console.log(errors);
+
+    let username = req.body.username;
+    let password = req.body.password;
+
+    if (!errors.isEmpty()) {
+      res.render("log-in", {
+        title: "Members Clubhouse - Log in",
+        username: username,
+        errors: errors.array(),
+      });
+      // return;
+    } else {
+      User.findOne({ username: username }).exec(function (err, user) {
+        if (err) {
+          return next(err);
+        }
+        if (!user) {
+          res.render("log-in", {
+            title: "Members Clubhouse - Log in",
+            username: username,
+            errors: [{ msg: "Email not found." }],
+          });
+        } else {
+          bcrypt.compare(password, user.password, (err, result) => {
+            if (err) {
+              console.error(err);
+              return done(null, false, { message: "Password problem." });
+            }
+            if (result) {
+              // return done(null, user);
+              next();
+            } else {
+              res.render("log-in", {
+                title: "Members Clubhouse - Log in",
+                username: username,
+                errors: [{ msg: "Your password is incorrect." }],
+              });
+            }
+          });
+        }
+      });
+    }
+  },
+];

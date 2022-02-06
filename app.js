@@ -98,9 +98,10 @@ app.post("/sign-up", userController.user_create_post);
 app.get("/log-in", userController.user_login_get);
 app.post(
   "/log-in",
+  userController.user_login_post,
   passport.authenticate("local", {
     successRedirect: "/",
-    failureRedirect: "/log-in",
+    // failureRedirect: "/log-in",
     failureMessage: true,
   })
 );
