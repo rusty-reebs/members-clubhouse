@@ -1,6 +1,7 @@
 // userController.js
 
 const User = require("../models/user");
+const Post = require("../models/post");
 const { body, check, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const async = require("async");
@@ -60,15 +61,6 @@ exports.user_create_post = [
           errors: [{ msg: "Email already exists." }],
         });
       } else {
-        // if (!errors.isEmpty()) {
-        //   res.render("sign-up", {
-        //     title: "Members Clubhouse - Sign Up",
-        //     user: user,
-        //     errors: errors.array(),
-        //   });
-
-        // return;
-
         bcrypt.hash(req.body.password, 10, (err, hashedPassword) => {
           if (err) {
             return next(err);
@@ -88,7 +80,12 @@ exports.user_create_post = [
 ];
 
 exports.user_login_get = function (req, res, next) {
-  res.render("log-in", { title: "Members Clubhouse - Log in" });
+  Post.find({}, "author").exec(function (err, posts) {
+    if (err) {
+      return next(err);
+    }
+    res.render("log-in", { title: "Members Clubhouse - Log in", posts: posts });
+  });
 };
 
 exports.user_login_post = [
@@ -109,7 +106,6 @@ exports.user_login_post = [
         username: username,
         errors: errors.array(),
       });
-      // return;
     } else {
       User.findOne({ username: username }).exec(function (err, user) {
         if (err) {
@@ -128,7 +124,6 @@ exports.user_login_post = [
               return done(null, false, { message: "Password problem." });
             }
             if (result) {
-              // return done(null, user);
               next();
             } else {
               res.render("log-in", {
